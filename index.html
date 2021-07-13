@@ -23,7 +23,6 @@
             margin:5em auto;
             display: flex;
             justify-content: center;
-            border: 2px solid grey;
             padding: 1em;
             border-radius: 5px;
 
@@ -34,13 +33,31 @@
         } 
         .accordion-content.active {
             display: block;
+            animation: fadeIn .5s ease-in-out;
         } 
         .btn {
             display: none;
             border: none;
+            font-size: 3rem;
+            background-color: transparent;
+            padding: 0 1rem;
         }
         .btn.active {
             display: block;
+        }
+        img {
+            border-radius: 5px;
+            -webkit-box-shadow: 5px 5px 15px 5px #000000; 
+            box-shadow: 5px 5px 15px 5px rgba(0,0,0,.5);
+        }
+        @keyframes fadeIn {
+            from {
+                opacity: .5;
+            }
+            to {
+                opacity: 1;
+            }
+            
         }
     </style>
     <title>Accordion</title>
@@ -55,12 +72,12 @@
 
     <div class="cont">
         <span class="message"></span>
-        <button class="btn btn-left">LEFT</button>
+        <button class="btn btn-left">&#8678;</button>
     <div class="accordion-content" id="content-1"><img src="./1.jpg" alt=""></div>
     <div class="accordion-content" id="content-2"><img src="./2.jpg" alt=""></div>
     <div class="accordion-content" id="content-3"><img src="./3.jpg" alt=""></div>
     <div class="accordion-content" id="content-4"><img src="./4.jpg" alt=""></div>
-        <button class="btn btn-right">RIGHT</button>
+        <button class="btn btn-right">&#8680;</button>
     </div>
 
 
@@ -68,6 +85,7 @@
     
  <script>
      const c = console.log
+     window.console.clear()
      let content
      document.addEventListener('click', e => {
          if(!event.target.classList.contains('accordion-toggle')) return
@@ -111,13 +129,10 @@
          content = content.previousElementSibling
          content.classList.add('active')
          if(!content.classList.contains('accordion-content')) {
-             content = document.querySelector('.accordion-content')
-             content = content.nextElementSibling
+             content = document.querySelector('#content-4')
              content.classList.add('active')
          }
-     })
-
-    
+     }) 
  </script>   
 </body>
 </html>
