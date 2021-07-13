@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel='icon' href='data:;base64,iVBORw0KGgo='>
+    <style type="text/css">
+        body {
+            margin: 0 auto;
+            max-width: 40em;
+            width: 88%;
+        }  
+        .links {
+            margin:5em auto;
+            display: flex;
+            justify-content: space-between;
+            border: 2px solid slateblue;
+            padding: 1em;
+            border-radius: 5px;
+        }
+        .cont {
+            margin:5em auto;
+            display: flex;
+            justify-content: center;
+            border: 2px solid grey;
+            padding: 1em;
+            border-radius: 5px;
+
+        }
+        .accordion-content {
+            display: none;
+            margin: 0;
+        } 
+        .accordion-content.active {
+            display: block;
+        } 
+        .btn {
+            display: none;
+            border: none;
+        }
+        .btn.active {
+            display: block;
+        }
+    </style>
+    <title>Accordion</title>
+</head>
+<body>
+    <div class="links">
+        <a href="#content-1" class="accordion-toggle">Show More 1</a>
+        <a href="#content-2" class="accordion-toggle">Show More 2</a>
+        <a href="#content-3" class="accordion-toggle">Show More 3</a>
+        <a href="#content-4" class="accordion-toggle">Show More 4</a>
+    </div>
+
+    <div class="cont">
+        <span class="message"></span>
+        <button class="btn btn-left">LEFT</button>
+    <div class="accordion-content" id="content-1"><img src="./1.jpg" alt=""></div>
+    <div class="accordion-content" id="content-2"><img src="./2.jpg" alt=""></div>
+    <div class="accordion-content" id="content-3"><img src="./3.jpg" alt=""></div>
+    <div class="accordion-content" id="content-4"><img src="./4.jpg" alt=""></div>
+        <button class="btn btn-right">RIGHT</button>
+    </div>
+
+
+
+    
+ <script>
+     const c = console.log
+     let content
+     document.addEventListener('click', e => {
+         if(!event.target.classList.contains('accordion-toggle')) return
+         content = document.querySelector(event.target.hash)
+         const btn = document.querySelectorAll('.btn')
+         if(!content) return
+         e.preventDefault()
+         if(content.classList.contains('active')) {
+             content.classList.remove('active')
+             btn.forEach(btn => {
+             btn.classList.remove('active')
+         })
+         document.querySelector('.message').textContent = 'Click one link'
+              return
+         } 
+         document.querySelector('.message').textContent = ''
+         const accordions = Array.prototype.slice.call(document.querySelectorAll('.accordion-content.active'))
+         accordions.forEach(accordion => {
+             accordion.classList.remove('active')
+         })
+         btn.forEach(btn => {
+             btn.classList.add('active')
+         })
+         content.classList.add('active')
+     })
+
+     const btnL = document.querySelector('.btn-left')
+     const btnR = document.querySelector('.btn-right')
+
+     btnL.addEventListener('click', e => {
+         content.classList.remove('active')
+         content = content.nextElementSibling
+         content.classList.add('active')
+         if(!content.classList.contains('accordion-content')) {
+             content = document.querySelector('.accordion-content')
+             content.classList.add('active')
+         }
+     })
+     btnR.addEventListener('click', e => {
+         content.classList.remove('active')
+         content = content.previousElementSibling
+         content.classList.add('active')
+         if(!content.classList.contains('accordion-content')) {
+             content = document.querySelector('.accordion-content')
+             content = content.nextElementSibling
+             content.classList.add('active')
+         }
+     })
+
+    
+ </script>   
+</body>
+</html>
